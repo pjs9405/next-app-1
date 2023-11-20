@@ -1,4 +1,3 @@
-"use client";
 import './globals.css'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -8,17 +7,13 @@ type post = {
   title: string;
   body: string;
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const [posts, setPosts] = useState<post[]>([]);
-  useEffect(() => {
-    fetch('http://localhost:9999/posts')
-      .then(res => res.json())
-      .then((data) => setPosts(data));
-  }, []);
+  const res = await fetch("http://localhost:9999/posts");
+  const posts = await res.json();
   return (
     <html lang="en">
       <body>
@@ -27,7 +22,8 @@ export default function RootLayout({
         </h1>
         <input type="text" placeholder="search" />
         <ul>
-          {posts.map((post) => {
+          {/* @ts-ignore */
+          posts.map((post) => {
             return <li key={post.id}>
               <Link href={"/read/" + post.id}>{post.title}</Link></li>
           })}
