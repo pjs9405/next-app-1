@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,6 +13,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  useEffect(()=>{});
   return (
     <html lang="en">
       <body>
