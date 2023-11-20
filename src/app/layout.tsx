@@ -12,7 +12,9 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const res = await fetch("http://localhost:9999/posts");
+  const res = await fetch("http://localhost:9999/posts", {
+    next: { revalidate: 0 },
+  });
   const posts = await res.json();
   return (
     <html lang="en">
@@ -23,10 +25,10 @@ export default async function RootLayout({
         <input type="text" placeholder="search" />
         <ul>
           {/* @ts-ignore */
-          posts.map((post) => {
-            return <li key={post.id}>
-              <Link href={"/read/" + post.id}>{post.title}</Link></li>
-          })}
+            posts.map((post) => {
+              return <li key={post.id}>
+                <Link href={"/read/" + post.id}>{post.title}</Link></li>
+            })}
         </ul>
         <article>{children}</article>
         <ul>
